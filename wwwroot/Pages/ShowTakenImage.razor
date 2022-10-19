@@ -1,0 +1,84 @@
+﻿@page "/showTakenImage"
+@page "/showTakenImage/{Link?}"
+@*@page "/showTakenImageAmount/{AmountPrint?}"*@
+@using BlazorServerApp.Shared
+@using BlazorServerApp.Data;
+@using System.IO
+@using System.Diagnostics
+@using Blazored.Modal
+
+@inject IJSRuntime JSRuntime
+@inject IModalService modal
+@inject NavigationManager NavManager
+
+<img class="takenImage" src="@myImage" />
+<footer>
+    <button class="print-button" @onclick="()=>SelectAmount()"><span class="print-icon"></span></button>
+    <button class="newImage" @onclick="@(() =>TakeNewPhoto())"><i class='oi oi-camera-slr'></i> </button>
+    <button @onclick="@(()=>modal.Show<EmailPopUp>("Deine Email:"))" class="btn btn-primary">Email</button>
+</footer>
+
+
+@code {
+    public async void TakeNewPhoto()
+    {
+        await JSRuntime.InvokeVoidAsync("stopVideo");
+        NavManager.NavigateTo("/cameraStream");
+    }
+    [Parameter]
+    public string Link { get; set; }
+
+    //[Parameter]
+    //public string AmountPrint { get; set; }
+    ImageProcessing obj = new ImageProcessing();
+
+    Print objPrint = new Print();
+    int counter = 1;
+    int index = 0;
+    string myImage = "";
+    //int amount = 1;
+    string image = null;
+    public void AmountPlus()
+    {
+        if (counter < 6)
+        {
+            counter++;
+        }
+    }
+    public void AmountMinus()
+    {
+        if (counter > 0)
+        {
+            counter--;
+        }
+    }
+    protected async override void OnParametersSet()
+    {
+        //if (AmountPrint != null)
+        //{
+        //    amount = int.Parse(AmountPrint);
+        //}
+
+        if (Link != null)
+        {
+            myImage = obj.CreateLinkForSrc(Link);
+        }
+        else
+        {
+            index = obj.CountFiles();
+
+            myImage = obj.CreateLinkForSrc(index.ToString());
+        }
+    }
+
+
+    public void SelectAmount()
+    {
+        int indexOfPoint = myImage.IndexOf(".");
+        string passImage = myImage.Substring(8, indexOfPoint - 9); // eine Stelle vor "." endet die index Zahl
+        ModalParameters param = new ModalParameters();
+        param.Add(nameof(Amount.Link), obj.CreateLinkForPrint(Link));
+        modal.Show<Amount>("Wie oft möchtest du dein Bild drucken?", param);
+        //NavManager.NavigateTo("/mainScreen");
+    }
+}

@@ -1,0 +1,72 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = BlazorServerApp
+build_property.RootNamespace = BlazorServerApp
+build_property.ProjectDir = /home/pi/PhotoBox/
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /home/pi/PhotoBox
+build_property._RazorSourceGeneratorDebug = 
+
+[/home/pi/PhotoBox/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/Pages/Amount.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQW1vdW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/Pages/CameraStream.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ2FtZXJhU3RyZWFtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/Pages/EmailPopUp.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRW1haWxQb3BVcC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/Pages/Gallery.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvR2FsbGVyeS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/Pages/MainScreen.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTWFpblNjcmVlbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/Pages/NewImage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTmV3SW1hZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/Pages/ShowTakenImage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hvd1Rha2VuSW1hZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-flo7fa71k5
+
+[/home/pi/PhotoBox/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-7id9obf0e4
+
+[/home/pi/PhotoBox/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pi/PhotoBox/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

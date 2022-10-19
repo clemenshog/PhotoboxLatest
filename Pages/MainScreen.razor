@@ -1,0 +1,43 @@
+﻿@page "/mainScreen"
+
+@using BlazorServerApp.Shared
+@using BlazorServerApp.Data;
+@using System.IO
+@using System.Diagnostics
+@using Blazored.Modal
+
+
+@inject NavigationManager NavManager
+@inject IJSRuntime JSRuntime
+@inject IModalService modal
+@*<h1> Camera </h1>*@
+
+<div>
+
+
+    <video class="video" id="videoFeed" width="600" height="600" />
+
+    <footer>
+        <button class="newImageMS" @onclick="@(() => TakePhoto())"><i class='oi oi-camera-slr'></i> </button>
+        @*<button class="newImageMS" @onclick="@(() => modal.Show<CameraStream>())"><i class='oi oi-camera-slr'></i> </button>*@
+    </footer>
+
+
+</div>
+
+
+@code {
+    int index = 0;
+    public async void TakePhoto()
+    {
+        await JSRuntime.InvokeVoidAsync("stopVideo");
+        NavManager.NavigateTo("/cameraStream");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("stopVideo");
+        await JSRuntime.InvokeVoidAsync("startVideo");
+    }
+
+}

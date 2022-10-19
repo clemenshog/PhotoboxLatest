@@ -1,0 +1,126 @@
+﻿@page "/cameraStream"
+@using Blazored.LocalStorage
+@using BlazorServerApp.Data
+@using System.Timers
+@using SkiaSharp
+@using System.IO
+
+@using SixLabors.ImageSharp
+@using SixLabors.ImageSharp.Processing
+@inject IJSRuntime JSRuntime
+@inject IModalService modal
+@inject NavigationManager NavManager
+@if (gif == false)
+{
+    <div class="fullscreen">
+        <footer class="countdown">
+            <p> @counter </p>
+        </footer>
+    </div>
+}
+else
+{
+    <div class="fullscreen">
+        <img class="gif" src="/load/loading.gif">
+    </div>
+}
+@code {
+    System.Diagnostics.Process process;
+    int index;
+    string file;
+    ImageProcessing obj = new ImageProcessing();
+    Print objP = new Print();
+    private int counter;
+    private static System.Timers.Timer aTimer;
+    int numOfImgs;
+    bool gif = false;
+    protected override async Task OnInitializedAsync()
+    {
+        index = obj.CountFiles();
+        counter = 5;
+        index = 0;
+        TakePhoto();
+
+        StartTimer();
+    }
+    public async void TakePhoto()
+    {
+        ImageProcessing img = new ImageProcessing();
+        numOfImgs = img.CountFiles();
+        string path = img.CreateFullLink(Convert.ToString(numOfImgs));
+        await JSRuntime.InvokeVoidAsync("console.log", path + counter.ToString());
+
+        process = img.MakeImage(path);
+        //await JSRuntime.InvokeVoidAsync("startVideo");
+    }
+    public void StartTimer()
+    {
+        aTimer = new System.Timers.Timer(1000);
+        aTimer.Elapsed += CountDownTimer;
+        aTimer.Enabled = true;
+    }
+    public void CountDownTimer(Object source, ElapsedEventArgs e)
+    {
+        if (counter > 1)
+        {
+            counter--;
+        }
+        else
+        {
+            aTimer.Enabled = false;
+            if (process != null)
+                process.WaitForExit();
+            file = obj.pathToImgs + (obj.CountFiles() - 1).ToString() + ".png";
+ 	    gif = true;
+	    InvokeAsync(StateHasChanged);
+            if (File.Exists(file))
+            {
+		Console.WriteLine(gif);
+                // add gif
+                WaterMark(file);
+            }
+            gif = false;
+            NavManager.NavigateTo($"/showTakenImage/{numOfImgs}");
+        }
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void WaterMark(string path)
+    {
+
+        int imgWidth = 1800;
+        int imgHeight = 1200;
+        int wmWidth = 290;
+        int wmHeight = 174;
+        try
+        {
+            SKBitmap image = SKBitmap.Decode(path);
+            SKBitmap watermark = SKBitmap.Decode(Directory.GetCurrentDirectory() + "/wwwroot/watermark/watermark.png");
+            using (var tempSurface = SKSurface.Create(new SKImageInfo(imgWidth, imgHeight)))
+            {
+                var canvas = tempSurface.Canvas;
+
+                canvas.Clear(SKColors.Transparent);
+
+                canvas.DrawBitmap(image, SKRect.Create(0, 0, imgWidth, imgHeight));
+
+                canvas.DrawBitmap(watermark, SKRect.Create(imgWidth - wmWidth, imgHeight - wmHeight, wmWidth, wmHeight));
+
+                var finalImage = tempSurface.Snapshot();
+                using (SKData encoded = finalImage.Encode(SKEncodedImageFormat.Png, 100))
+                using (Stream outFile = File.OpenWrite(path))
+                {
+                    encoded.SaveTo(outFile);
+                }
+            }
+
+
+        }
+        catch
+        {
+
+        }
+    }
+}
+
+

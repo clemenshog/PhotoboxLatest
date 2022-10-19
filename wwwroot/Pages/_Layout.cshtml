@@ -1,0 +1,117 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@namespace BlazorServerApp.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="BlazorServerApp.styles.css" rel="stylesheet" />
+
+    <link href="~/_content/Blazored.Modal/blazored-modal.css" rel="stylesheet" />
+    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+</head>
+<body>
+    @RenderBody()
+
+    @*<div id="blazor-error-ui">
+        <environment include="Staging,Production">
+        An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+        An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+        </div>*@
+
+    <script src="_framework/blazor.server.js"></script>
+    @*<script>navigator.serviceWorker.register('service-worker.js');</script>*@
+
+    <script src="_content/Blazored.Modal/blazored.modal.js"></script>
+
+
+
+    <script>
+        let localstream = null;
+        let index = 5;
+        let video;
+        let check = false;
+        function startVideo() {
+            console.log(localstream);
+            if (check == false) {
+                check = true;
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                        video = document.getElementById("videoFeed");
+                        localstream = stream;
+                        if ("srcObject" in video) {
+                            video.srcObject = stream;
+                        } else {
+                            video.src = window.URL.createObjectURL(stream);
+                        }
+                        video.onloadedmetadata = function(e) {
+                            video.play();
+                        };
+
+                        //mirror image
+                        video.style.webkitTransform = "scaleX(-1)";
+                        video.style.transform = "scaleX(-1)";
+
+                    });
+                }
+            }
+        }
+        function stopVideo(){
+            if(check == true){
+                check = false;
+                localstream.getVideoTracks()[0].stop();
+                localstream = null;
+            }
+        }
+        function getFrame(src, dest, dotNetHelper) {
+            let video = document.getElementById(src);
+            let canvas = document.getElementById(dest);
+
+            canvas.getContext('2d').drawImage(video, 0, 0, 320, 240);
+
+            let dataUrl = canvas.toDataURL("image/jpeg");
+            //var base64 = dataURL.split('base64,')[1];
+            //var parseFile = new Parse.File(name, { base64: base64 });
+            //downloadURI(dataUrl, index + ".jpg");
+            //index++;
+            //dotNetHelper.invokeMethodAsync('ProcessImage', dataUrl);
+
+
+            dotNetHelper.invokeMethodAsync('ProcessImage', dataUrl);
+
+        }
+
+        function downloadURI(uri, name) {
+            var link = document.createElement("a");
+            link.download = name;
+            link.href = uri;
+            link.fil
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            delete link;
+        }
+        async function downloadFileFromStream(fileName, contentStreamReference) {
+            const arrayBuffer = await contentStreamReference.arrayBuffer();
+            const blob = new Blob([arrayBuffer]);
+            const url = URL.createObjectURL(blob);
+
+            triggerFileDownload(fileName, url);
+
+            URL.revokeObjectURL(url);
+        }
+
+
+    </script>
+</body>
+</html>

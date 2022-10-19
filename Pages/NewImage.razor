@@ -1,0 +1,145 @@
+﻿@page "/newImage"
+@*@using BlazorServerApp.Shared*@
+@using Blazored.LocalStorage
+@using BlazorServerApp.Data
+@using System.Timers
+@using SkiaSharp
+@using System.IO
+
+@using SixLabors.ImageSharp
+@using SixLabors.ImageSharp.Processing
+@inject IJSRuntime JSRuntime
+@inject IModalService modal
+@inject NavigationManager NavManager
+
+
+<h1>Camera</h1>
+<div>
+    <video id="videoFeed" width="1550" height="1200"/>
+    @*<canvas class="d-none" id="currentFrame" width="320" height="240" />*@
+
+    <footer class="countdown">
+
+        <p> @counter </p>
+
+    </footer>
+</div>
+
+@code
+{
+
+    int index = 0;
+    ImageProcessing obj = new ImageProcessing();
+    Print objP = new Print();
+
+    private static System.Timers.Timer aTimer;
+    private int counter = 5;
+    protected override async Task OnInitializedAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("startVideo", "videoFeed");
+        index = obj.CountFiles();
+        StartTimer();
+    }
+
+    private async Task CaptureFrame()
+    {
+
+        //await JSRuntime.InvokeAsync<String>("getFrame", "videoFeed", "currentFrame", DotNetObjectReference.Create(this));
+    }
+
+    public void StartTimer()
+    {
+        aTimer = new System.Timers.Timer(1000);
+        aTimer.Elapsed += CountDownTimer;
+        aTimer.Enabled = true;
+    }
+    public void CountDownTimer(Object source, ElapsedEventArgs e)
+    {
+        if ( counter == 5)
+        {
+            index++;
+            string file = obj.pathToImgs + index + ".png";
+            obj.MakeImage(file);
+            SKBitmap img = SKBitmap.Decode(file);
+            WaterMark(img);
+        }
+        if (counter > 1)
+        {
+            counter--;
+        }
+        else
+        {
+
+            //CaptureFrame();
+            aTimer.Enabled = false;
+
+        }
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void WaterMark(SKBitmap image)
+    {
+       
+        string path = obj.pathToImgs + index + ".png";
+        int imgWidth = 1800;
+        int imgHeight = 1200;
+        int wmWidth = 290;
+        int wmHeight = 174;
+        try
+        {
+            SKBitmap watermark = SKBitmap.Decode(Directory.GetCurrentDirectory() + "/wwwroot/watermark/watermark.png");
+            using (var tempSurface = SKSurface.Create(new SKImageInfo(imgWidth, imgHeight)))
+            {
+                var canvas = tempSurface.Canvas;
+                
+                canvas.Clear(SKColors.Transparent);
+
+                canvas.DrawBitmap(image, SKRect.Create(0, 0, imgWidth, imgHeight));
+
+                canvas.DrawBitmap(watermark, SKRect.Create(imgWidth - wmWidth, imgHeight - wmHeight, wmWidth, wmHeight));
+
+                var finalImage = tempSurface.Snapshot();
+                using (SKData encoded = finalImage.Encode(SKEncodedImageFormat.Png, 100))
+                using (Stream outFile = File.OpenWrite(path))
+                {
+                    encoded.SaveTo(outFile);
+                }
+            }
+
+
+        }
+        catch
+        {
+
+        }
+    }
+    [JSInvokable]
+    public void ProcessImage(string imageString)
+    {
+        byte[] imageData = Convert.FromBase64String(imageString.Split(',')[1]);
+        SKBitmap imageBP;
+        Image image;
+        //index++;
+        //string path1 = path + index + ".png";
+        //using (MemoryStream ms = new MemoryStream(imageData))
+        //{
+        //    image = Image.Load(ms);
+
+
+        //}
+        imageBP = SKBitmap.Decode(imageData);
+        //image.Mutate(x => x.Resize(1800, 1200));
+        //image.Mutate(x => x.AutoOrient());
+       
+        WaterMark(imageBP);
+        //image.Save(path1);
+        NavManager.NavigateTo("/ShowTakenImage", forceLoad: true);
+
+    }
+
+
+}
+
+
+
+

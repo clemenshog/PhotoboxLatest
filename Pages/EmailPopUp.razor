@@ -1,0 +1,83 @@
+﻿@page "/email"
+@using System.Net;
+@using System.Net.Mail;
+@using BlazorServerApp.Data
+@using BlazorServerApp.Shared;
+@using Blazored.Modal;
+@using System.Net.Mime
+
+<input class="emailInput" type="text" name="Email" @bind="@EmailInput" @oninput="@((e) => { EmailInput=(string)e.Value;})" />
+<p> Hier wird dein Bild zu deiner persönlichen Email geschickt</p>
+<button @onclick="() => SendMail()" disabled=@taskRunning class="btnSend">@buttonName</button>
+
+<p class="emailsuccess">@message</p>
+@code
+{
+    ImageProcessing obj = new ImageProcessing();
+
+    [Parameter]
+    public string Value { get; set; }
+
+    int index = 0;
+    string showMessage = "";
+    private string EmailInput { get; set; }
+    bool emailSent = false;
+    bool taskRunning = false;
+    string buttonName = "Senden";
+    string message = "";
+
+    public async void SendMail()
+    {
+        emailSent = false;
+        taskRunning = true;
+        buttonName = "warten...";
+        await OnButtonClick();
+
+        taskRunning = false;
+        buttonName = "Senden";
+        StateHasChanged();
+    }
+
+    Task OnButtonClick()
+    {
+        index = obj.CountFiles() - 1;
+        try
+        {
+
+            using (MailMessage mail = new MailMessage())
+            {
+                Attachment att = new Attachment(obj.pathToImgs + index + ".png");
+                mail.From = new MailAddress("htl.fotobox@gmail.com");
+
+                mail.To.Add(EmailInput); // !
+                mail.Subject = "Dein Bild aus der Fotobox in der HTL Neufelden";
+                mail.Body = "<h1> Dein Bild findest du im Anhang</h1>";
+                mail.Body = "<p> Viel Spass mit deinem Bild aus der HTL Neufelden </p>";
+                mail.IsBodyHtml = true;
+                mail.Attachments.Add(att);
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+
+                {
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                    smtp.Credentials = new System.Net.NetworkCredential("htl.fotobox@gmail.com", "gzanupahkidtzpoo");
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+
+                }
+
+            }
+            message = "Email erfolgreich gesendet";
+
+        }
+        catch (Exception ex)
+        {
+            message = "Fehler: " + ex.Message;
+
+
+        }
+        //here user can perform buton click function
+        return Task.CompletedTask;
+    }
+
+}

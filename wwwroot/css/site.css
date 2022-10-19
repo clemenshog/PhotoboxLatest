@@ -1,0 +1,463 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body {
+    font-family: Sans-Serif Workhorse;
+    margin: 0px;
+    padding: 0px;
+    background-color: #1f1f1f;
+    overscroll-behavior-x: none;
+}
+
+h1 {
+    outline: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-top:50px;
+}
+.gif
+{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width:50%;
+}
+.video
+{
+    margin:auto;
+    display:block;
+}
+
+.emailInput
+{
+    border-radius:2px;
+}
+.amountPlus {
+    display: inline-block;
+    float: right;
+    margin-left: 40px;
+    padding: 20px 30px;
+    border: none;
+    color: white;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    border-radius:4px;
+}
+.amountMinus {
+    display: inline-block;
+    float: left;
+    margin-right: 40px;
+    padding: 20px 30px;
+    border: none;
+    color: white;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    border-radius:4px;
+}
+.amount
+{
+    font-size:45px;
+    display:inline-block;
+    margin-top:0px;
+    margin-left:140px;
+}
+.countdown {
+    position: fixed;
+    bottom: 0;
+    /*left: 0;*/
+    height: 100px;
+    width: 100%;
+    background:rgba(31,31,31,0);
+    align-items: center;
+    display: flex;
+    /*justify-content: center;*/
+    
+}
+
+.emailfailed
+{
+    color:darkred;
+}
+.emailsuccess {
+    color: black;
+    
+}
+
+.countdown p {
+    font-size: 150px;
+    color: white;
+    font-weight:bold;
+    margin-left: auto;
+    margin-bottom:100px;
+}
+.fullscreen {
+    background: black;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+a, .btn-link {
+    color: #0077cc;
+}
+
+.AmountBox
+{
+    margin-top:20px;
+}
+.btnPrint {
+
+    margin-top:20px;
+    color: white;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    margin-bottom: 35px;
+    padding: 10px 30px;
+    border-radius:4px;
+}
+.btnSend {
+    margin-top: 20px;
+    color: white;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    margin-bottom: 35px;
+    padding: 10px 30px;
+    border-radius: 4px;
+}
+.btn-primary {
+    color: white;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    margin-bottom: 35px;
+    padding: 10px 35px;
+    font-size:1.2rem;
+    float:right;
+    margin-top:45px;
+    margin-right:180px;
+    /*margin-left:300px*/
+}
+
+/* Div class for Gallery*/
+.gallery {
+    margin: auto;
+    padding: 5px;
+}
+
+    .gallery img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        width: 50%;
+    }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+    .gallery a:focus img {
+        border: 5px solid #248a00;
+        /*border:5px solid white;*/
+        transform: scale(1.1);
+    }
+
+
+/* Div class for Print Button in Gallery*/
+.printButtonGallery {
+    position: fixed;
+    justify-content: right;
+    bottom: 0;
+    right: 0;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+/* Button class for Print Button Gallery */
+button.print-buttonGallery {
+    position: relative;
+    padding: 0;
+    border: 0;
+    border: none;
+    background: transparent;
+    margin-right: 50px;
+}
+/* img class for Main Image in MainScreen*/
+.mainImage {
+    display: block;
+    margin: 0px auto;
+    width: 85%;
+    border-radius: 10px;
+    margin-top: 40px
+}
+
+.takenImage {
+    display: block;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:40px;
+    width: 70%;
+}
+
+/* Button class for Camera Button in MainScreen*/
+.newImage {
+    /*margin-top: 10px;*/
+    outline: none;
+    background-color: #1f1f1f;
+    color: white;
+    font-size: 60px;
+    border: none;
+    display: inline-block;
+    /*margin-right: 235px;*/
+    margin-left:185px;
+    /*margin:auto;*/
+    margin-top:30px;
+}
+
+.newImageMS {
+    margin-top: 10px;
+    outline: none;
+    background-color: #1f1f1f;
+    color: white;
+    font-size: 60px;
+    border: none;
+    display: block;
+    margin:auto;
+}
+/* Button class for Print in MainScreen*/
+.printButton {
+    margin-top: 10px;
+    outline: none;
+    background-color: #248a00;
+    color: white;
+    border-radius: 10px;
+    padding: 15px 90px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+/* Footer in MainScreen*/
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    padding: 3px;
+    width:70%
+    
+}
+
+
+/*#region PrintButton Gallery*/
+button.print-buttonGallery {
+    width: 100px;
+    height: 100px;
+}
+
+    span.print-icon, span.print-icon::before, span.print-icon::after, button.print-buttonGallery:hover .print-icon::after {
+        border: solid 4px #333;
+    }
+
+        span.print-icon::after {
+            border-width: 2px;
+        }
+
+button.print-buttonGallery {
+    position: relative;
+    padding: 0;
+    border: 0;
+    border: none;
+    background: transparent;
+    margin-right: 100px;
+}
+
+    span.print-icon, span.print-icon::before, span.print-icon::after, button.print-buttonGallery:hover .print-icon::after {
+        box-sizing: border-box;
+        background-color: #fff;
+    }
+
+span.print-icon {
+    position: relative;
+    display: inline-block;
+    padding: 0;
+    margin-top: 20%;
+    width: 90%;
+    height: 52%;
+    background: #fff;
+    border-radius: 20% 20% 0 0;
+}
+
+    span.print-icon::before {
+        content: " ";
+        position: absolute;
+        bottom: 100%;
+        left: 12%;
+        right: 12%;
+        height: 110%;
+        transition: height .2s .15s;
+    }
+
+    span.print-icon::after {
+        content: " ";
+        position: absolute;
+        top: 55%;
+        left: 12%;
+        right: 12%;
+        height: 0%;
+        background: #fff;
+        background-repeat: no-repeat;
+        background-size: 70% 90%;
+        background-position: center;
+        background-image: linear-gradient( to top, #fff 0, #fff 14%, #333 14%, #333 28%, #fff 28%, #fff 42%, #333 42%, #333 56%, #fff 56%, #fff 70%, #333 70%, #333 84%, #fff 84%, #fff 100% );
+        transition: height .2s, border-width 0s .2s, width 0s .2s;
+    }
+
+button.print-buttonGallery:hover {
+    cursor: pointer;
+}
+
+    button.print-buttonGallery:hover .print-icon::before {
+        height: 0px;
+        transition: height .2s;
+    }
+
+    button.print-buttonGallery:hover .print-icon::after {
+        height: 120%;
+        transition: height .2s .15s, border-width 0s .16s;
+    }
+/*#endregion RegionName*/
+
+
+/*#region PrintButton Main*/
+button.print-button {
+    width: 80px;
+    height: 80px;
+}
+
+    span.print-icon, span.print-icon::before, span.print-icon::after, button.print-button:hover .print-icon::after {
+        border: solid 4px #333;
+    }
+
+        span.print-icon::after {
+            border-width: 2px;
+        }
+
+button.print-button {
+    position: relative;
+    padding: 0;
+    border: 0;
+    border: none;
+    background: transparent;
+    float:left;
+    /*margin-right: 250px;*/
+    margin-left: 180px;
+    margin-top:35px;
+}
+
+    span.print-icon, span.print-icon::before, span.print-icon::after, button.print-button:hover .print-icon::after {
+        box-sizing: border-box;
+        background-color: #fff;
+    }
+
+span.print-icon {
+    position: relative;
+    display: inline-block;
+    padding: 0;
+    margin-top: 20%;
+    width: 90%;
+    height: 52%;
+    background: #fff;
+    border-radius: 20% 20% 0 0;
+}
+
+    span.print-icon::before {
+        content: " ";
+        position: absolute;
+        bottom: 100%;
+        left: 12%;
+        right: 12%;
+        height: 110%;
+        transition: height .2s .15s;
+    }
+
+    span.print-icon::after {
+        content: " ";
+        position: absolute;
+        top: 55%;
+        left: 12%;
+        right: 12%;
+        height: 0%;
+        background: #fff;
+        background-repeat: no-repeat;
+        background-size: 70% 90%;
+        background-position: center;
+        background-image: linear-gradient( to top, #fff 0, #fff 14%, #333 14%, #333 28%, #fff 28%, #fff 42%, #333 42%, #333 56%, #fff 56%, #fff 70%, #333 70%, #333 84%, #fff 84%, #fff 100% );
+        transition: height .2s, border-width 0s .2s, width 0s .2s;
+    }
+
+button.print-button:hover {
+    cursor: pointer;
+}
+
+    button.print-button:hover .print-icon::before {
+        height: 0px;
+        transition: height .2s;
+    }
+
+    button.print-button:hover .print-icon::after {
+        height: 120%;
+        transition: height .2s .15s, border-width 0s .16s;
+    }
+
+/*#endregion RegionName*/
+
+
+/*#region Errors*/
+.content {
+    padding-top: 1.1rem;
+    color: white;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+.blazor-error-boundary {
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYiIGhlaWdodD0iNDkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJoaWRkZW4iPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDAiPjxyZWN0IHg9IjIzNSIgeT0iNTEiIHdpZHRoPSI1NiIgaGVpZ2h0PSI0OSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMzUgLTUxKSI+PHBhdGggZD0iTTI2My41MDYgNTFDMjY0LjcxNyA1MSAyNjUuODEzIDUxLjQ4MzcgMjY2LjYwNiA1Mi4yNjU4TDI2Ny4wNTIgNTIuNzk4NyAyNjcuNTM5IDUzLjYyODMgMjkwLjE4NSA5Mi4xODMxIDI5MC41NDUgOTIuNzk1IDI5MC42NTYgOTIuOTk2QzI5MC44NzcgOTMuNTEzIDI5MSA5NC4wODE1IDI5MSA5NC42NzgyIDI5MSA5Ny4wNjUxIDI4OS4wMzggOTkgMjg2LjYxNyA5OUwyNDAuMzgzIDk5QzIzNy45NjMgOTkgMjM2IDk3LjA2NTEgMjM2IDk0LjY3ODIgMjM2IDk0LjM3OTkgMjM2LjAzMSA5NC4wODg2IDIzNi4wODkgOTMuODA3MkwyMzYuMzM4IDkzLjAxNjIgMjM2Ljg1OCA5Mi4xMzE0IDI1OS40NzMgNTMuNjI5NCAyNTkuOTYxIDUyLjc5ODUgMjYwLjQwNyA1Mi4yNjU4QzI2MS4yIDUxLjQ4MzcgMjYyLjI5NiA1MSAyNjMuNTA2IDUxWk0yNjMuNTg2IDY2LjAxODNDMjYwLjczNyA2Ni4wMTgzIDI1OS4zMTMgNjcuMTI0NSAyNTkuMzEzIDY5LjMzNyAyNTkuMzEzIDY5LjYxMDIgMjU5LjMzMiA2OS44NjA4IDI1OS4zNzEgNzAuMDg4N0wyNjEuNzk1IDg0LjAxNjEgMjY1LjM4IDg0LjAxNjEgMjY3LjgyMSA2OS43NDc1QzI2Ny44NiA2OS43MzA5IDI2Ny44NzkgNjkuNTg3NyAyNjcuODc5IDY5LjMxNzkgMjY3Ljg3OSA2Ny4xMTgyIDI2Ni40NDggNjYuMDE4MyAyNjMuNTg2IDY2LjAxODNaTTI2My41NzYgODYuMDU0N0MyNjEuMDQ5IDg2LjA1NDcgMjU5Ljc4NiA4Ny4zMDA1IDI1OS43ODYgODkuNzkyMSAyNTkuNzg2IDkyLjI4MzcgMjYxLjA0OSA5My41Mjk1IDI2My41NzYgOTMuNTI5NSAyNjYuMTE2IDkzLjUyOTUgMjY3LjM4NyA5Mi4yODM3IDI2Ny4zODcgODkuNzkyMSAyNjcuMzg3IDg3LjMwMDUgMjY2LjExNiA4Ni4wNTQ3IDI2My41NzYgODYuMDU0N1oiIGZpbGw9IiNGRkU1MDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48L3N2Zz4=) no-repeat 1rem/1.8rem, #b32121;
+    padding: 1rem 1rem 1rem 3.7rem;
+    color: white;
+}
+
+    .blazor-error-boundary::after {
+        content: "An error has occurred."
+    }
+
+/*#endregion RegionName*/

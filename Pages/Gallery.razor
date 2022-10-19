@@ -1,0 +1,56 @@
+﻿@page "/gallery"
+@page "/"
+@using BlazorServerApp.Data
+@using BlazorServerApp.Shared
+@using System.IO
+@using System.Web
+@inject IJSRuntime JSRuntime
+@inject IModalService modal
+@inject NavigationManager NavManager
+<h1>Gallery</h1>
+
+<div class="printButtonGallery">
+    <button class="print-buttonGallery" @onclick="PrintButton"><span class="print-icon"></span></button>
+</div>
+
+@foreach (var img in imageList)
+{
+
+    <div class="gallery">
+        <a tabindex="1"><img src=@img @onclick="() => ClickedImage(img)" id=@img></a>
+
+    </div>
+
+}
+
+@functions
+{
+    ImageProcessing obj = new ImageProcessing();
+    List<string> imageList = new List<string>();
+    string selectedImage = null;
+    int index = 0;
+    protected override async Task OnInitializedAsync()
+    {
+        imageList = obj.GetImages();
+
+    }
+
+
+    public void ClickedImage(string img)
+    {
+        selectedImage = img;
+    }
+
+    public void PrintButton()
+    {
+        if (selectedImage != null)
+        {
+            int indexOfPoint = selectedImage.IndexOf(".");
+            selectedImage = selectedImage.Substring(8, indexOfPoint-8);
+            NavManager.NavigateTo($"/showTakenImage/{selectedImage}");
+
+        }
+    }
+
+
+}
